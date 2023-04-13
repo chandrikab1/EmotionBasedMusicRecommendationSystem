@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlist</title>
+    <style>
+        /* page styling */
+        body {
+            background: linear-gradient(to right, #1A2980, #26D0CE);
+            font-family: 'Open Sans', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 50px;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+            color: #FF69B4;
+        }
+        h2 {
+            font-size: 30px;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 20px;
+        }
+        /* card styling */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .card {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 20px;
+            background: linear-gradient(to right, #141E30, #243B55);
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+        .card h3 {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 20px;
+        }
+        .card a {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #26D0CE;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease-in-out;
+        }
+        .card a:hover {
+            background-color: #fff;
+            color: #26D0CE;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
+        }
+        
+        .card:hover {
+             transform: scale(1.05);
+             box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover img {
+              filter: brightness(80%);
+        }
+
+        .card:hover a {
+              background-color: #fff;
+              color: #26D0CE;
+              box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
+        } 
+       .songs{
+            font-size: 15px;
+        
+        }
+  
+    </style>
+</head>
+<body>
+    <h1>Music Lovers</h1>
+    {% if emotion=='happy' %}
+        <h2>Happy beats</h2>
+    {% endif %}
+    {% if emotion=='sad' %}
+        <h2>Sad Songs</h2>
+    {% endif %}
+    {% if emotion=='neutral' %}
+        <h2>Neutral Music</h2>
+    {% endif %}
+    {% if emotion=='fear' %}
+        <h2>Let the Fear Out</h2>
+    {% endif %}
+    {% if emotion=='angry' %}
+        <h2>Angry Playlist</h2>
+    {% endif %}
+    {% if emotion=='disgust' %}
+        <h2>Disgust Songs</h2>
+    {% endif %}
+    {% if emotion=='surprise' %}
+        <h2>Get Surprised</h2>
+    {% endif %}
+    <div class="card-container">
+        {% for el in final_playlist_songs %}
+            <div class="card">
+                <img src="https://www.pixel4k.com/wp-content/uploads/2021/04/my-best-casette-playlist-4k_1618133576-300x200.jpg" alt="Playlist Image">
+                
+                {% for i in range(0,2) %}
+                    <p class="songs">"{{el['playlist_songs'][i]}}"<p>
+                {% endfor %}
+                <a href="{{ el['playlist_spotify_link'] }}" target="_blank">Listen Now</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

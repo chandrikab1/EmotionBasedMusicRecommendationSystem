@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Music Recommendation System</title>
+	<style>
+		body {
+    		
+    		background: linear-gradient(to right, #B0B0B0, rgba(0,0,0,0.30) 100%);
+            background-blend-mode: screen;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+    		padding-top: 30px;
+    		padding-bottom: 15px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            text-shadow: 2px 2px 4px #000000;
+            background: -webkit-linear-gradient(#873600, #873600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p{
+           font-size: 20px;
+        
+        }
+		img{
+    		max-width: 100%;
+    		height: auto;
+		
+		}
+		.container {
+			max-width: 600px;
+			margin: 50px auto;
+			text-align: center;
+			background-color: white;
+			padding: 20px;
+			box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+			background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+			border-radius: 10px;
+		}
+		.button {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			text-decoration: none;
+			border-radius: 5px;
+			transition: background-color 0.3s;
+			cursor: pointer;
+			margin-top: 20px;
+			border: none;
+		}
+		.button:hover {
+			background-color: #3e8e41;
+		}
+		.button:focus {
+			outline: none;
+		}
+		.container:hover {
+			transform: translateY(-5px);
+			box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Music Recommendation System</h1>
+	<div class="container">
+		<p>Please click the button below to capture your emotions and generate a personalized playlist.</p>
+		<button class="button" onclick="capture()">Capture Emotion</button>
+		
+		<div id="result"></div>
+	</div>
+	<script>
+    	function get_playlist() {
+            var url = "/playlist";
+            window.location.href = url;
+       }
+    	function updateResult(){
+        	var imgSrc = "{{ url_for('static', filename='emotion_plot.jpg') }}?" + new Date().getTime();
+        	document.getElementById('result').innerHTML = '<img src="' + imgSrc + '" alt="Emotion Plot"><br><button class="button" onclick="get_playlist()">Get Playlist</button>';
+    	}
+		function capture() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', '/capture');
+			xhr.onload = function() {
+			    console.log(xhr.status);
+				if (xhr.status === 200) {
+    				updateResult()
+				}
+				else {
+					alert('Error capturing emotions.');
+				}
+			};
+			xhr.send();
+		}
+	</script>
+</body>
+</html>
+
